@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="./styles/home.css" />
+    <link rel="stylesheet" href="./styles/product.css" />
+    <script src="index.js" defer></script>
+    <title>Craftopia</title>
+  </head>
+  <body>
+    <nav class="primary-nav-menu-container">
+      <img src="./assets/logo.png" alt="craftopia" class="logo" />
+      <a href="#" class="my-orders">my orders</a>
+      <div class="category-dropdown-container">
+        <button class="category-dropdown-toggle">Category</button>
+        <ul class="category-dropdown-menu">
+          <li>knitted items</li>
+          <li>crocheted items</li>
+          <li>sewn items</li>
+          <li>embroidered items</li>
+          <li>quilted items</li>
+          <li>jewelry</li>
+          <li>paper crafts</li>
+          <li>wood crafts</li>
+          <li>pottery</li>
+          <li>candles</li>
+          <li>soap</li>
+          <li>paintings</li>
+          <li>drawings</li>
+          <li>sculptures</li>
+          <li>leather goods</li>
+        </ul>
+      </div>
+
+      <input type="text" placeholder="search products" class="search" />
+      <a href="#" class="account-btn"
+        ><img src="./assets/account-svgrepo-com.svg" alt="account" />Account</a
+      >
+    </nav>
+    <main class="main">
+      <div class="filter-container"></div>
+      <div class="product-container"></div>
+    </main>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </body>
+</html>
