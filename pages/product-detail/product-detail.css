@@ -1,0 +1,75 @@
+@import url("../../index.css");
+
+main {
+  display: flex;
+  justify-content: center;
+}
+
+.product-detail-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding-top: 5rem;
+  width: 50rem;
+}
+
+.product-detail-container > .left-section {
+  width: 50%;
+}
+
+.product-detail-container > .right-section {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 3rem;
+}
+
+.product-detail-container > .left-section .image-container {
+  background-color: var(--clr-800);
+}
+
+.product-detail-container > .left-section > .main-image-container {
+  width: 100%;
+  aspect-ratio: 1;
+  margin-block-end: 1rem;
+}
+
+.product-detail-container > .left-section > .small-images-container {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  height: 5rem;
+}
+
+.product-detail-container
+  > .left-section
+  > .small-images-container
+  > .small-image {
+  width: 5rem;
+  height: 5rem;
+}
+
+.product-detail-container > .right-section > .product-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  width: 25rem;
+  word-wrap: break-word;
+}
+
+.order-btn {
+  width: 100%;
+  background-color: var(--clr-600);
+  border: none;
+  outline: none;
+  padding-block: 0.75rem;
+  border-radius: 0.5rem;
+  color: var(--clr-100);
+  box-shadow: 0 -0.3rem 0 0 var(--clr-620) inset;
+  cursor: pointer;
+  margin-block-start: 3rem;
+}
+
+.product-price {
+  font-weight: bold;
+  font-size: 2rem;
+}

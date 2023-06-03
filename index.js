@@ -95,6 +95,9 @@ const renderProducts = (data, filter) => {
         }<span class="review-count">(${product[8]})</span></span>
       </div>
     `;
+    productCard.addEventListener("click", () => {
+      window.location.href = `./pages/product-detail/product-detail.html?id=${product[0]}`;
+    });
     main.appendChild(productCard);
   });
 };
