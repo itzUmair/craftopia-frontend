@@ -82,6 +82,7 @@
 .category-dropdown-menu > li:hover,
 .category-dropdown-menu > li:focus {
   text-decoration: underline;
+  color: var(--clr-600);
 }
 
 .account-btn {

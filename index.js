@@ -2,6 +2,7 @@ const categoryToggle = document.querySelector(".category-dropdown-toggle");
 const categoryMenu = document.querySelector(".category-dropdown-menu");
 const main = document.querySelector(".product-container");
 const filterContainer = document.querySelector(".filter-container");
+const searchBar = document.querySelector(".search");
 
 const categoryMap = {
   "knitted items": 40001,
@@ -50,6 +51,13 @@ categoryMenu.addEventListener("click", (e) => {
 
 getAllItems();
 
+const getSearchedItem = async (product_name) => {
+  const item = await axios.get(
+    `http://127.0.0.1:8000/products/search/${product_name}`
+  );
+  renderProducts(item.data.data, product_name);
+};
+
 const renderProducts = (data, filter) => {
   main.innerHTML = "";
   filterContainer.innerHTML = "";
@@ -90,3 +98,9 @@ const renderProducts = (data, filter) => {
     main.appendChild(productCard);
   });
 };
+
+searchBar.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    getSearchedItem(e.target.value);
+  }
+});
