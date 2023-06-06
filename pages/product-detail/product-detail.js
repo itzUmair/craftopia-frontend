@@ -7,20 +7,22 @@ const getProductId = () => {
 
 const getProductDetails = async () => {
   const id = getProductId();
-  console.log(id);
   const item = await axios.get(`http://127.0.0.1:8000/product/getitem/${id}`);
+  const images = await axios.get(
+    `http://127.0.0.1:8000/product/getitem/images/${id}`
+  );
   const product = item.data.data;
-  console.log(product);
+  const productImages = images.data.data;
   const price = product[2].toString().split(".");
   main.innerHTML = `
     <section class="product-detail-container">
     <section class="left-section">
       <div class="main-image-container image-container"></div>
       <div class="small-images-container">
-        <span class="small-image image-container"></span>
-        <span class="small-image image-container"></span>
-        <span class="small-image image-container"></span>
-        <span class="small-image image-container"></span>
+        <span class="small-image image-container" style="background-image: url(${productImages[0][1]}"></span>
+        <span class="small-image image-container" style="background-image: url(${productImages[1][1]}"></span>
+        <span class="small-image image-container" style="background-image: url(${productImages[2][1]}"></span>
+        <span class="small-image image-container" style="background-image: url(${productImages[3][1]}"></span>
       </div>
     </section>
     <section class="right-section">
@@ -33,6 +35,16 @@ const getProductDetails = async () => {
   </section>
   <section class="similar-product-display"></section>
   `;
+  const mainImageContainer = document.querySelector(".main-image-container");
+  const smallImageContainers = document.querySelectorAll(".small-image");
+
+  mainImageContainer.style.backgroundImage = `url(${productImages[0][1]})`;
+
+  smallImageContainers.forEach((smallContainer, index) => {
+    smallContainer.addEventListener("click", () => {
+      mainImageContainer.style.backgroundImage = `url(${productImages[index][1]})`;
+    });
+  });
 };
 
 getProductDetails();

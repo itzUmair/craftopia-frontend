@@ -26,6 +26,9 @@ main {
 
 .product-detail-container > .left-section .image-container {
   background-color: var(--clr-800);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .product-detail-container > .left-section > .main-image-container {
@@ -39,6 +42,7 @@ main {
   gap: 1rem;
   width: 100%;
   height: 5rem;
+  cursor: pointer;
 }
 
 .product-detail-container
