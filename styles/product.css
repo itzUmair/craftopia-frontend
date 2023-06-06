@@ -13,6 +13,9 @@
   height: 10rem;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .product-detail {

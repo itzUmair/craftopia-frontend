@@ -32,14 +32,24 @@ const toggleCategoryMenu = () => {
 
 const getAllItems = async () => {
   const items = await axios.get("http://127.0.0.1:8000/getallitems");
-  renderProducts(items.data.data);
+  const itemCoverImages = await axios.get(
+    "http://127.0.0.1:8000/product/coverimages"
+  );
+  renderProducts(items.data.data, itemCoverImages.data.data);
 };
 
 const getItemByCategory = async (id) => {
   const items = await axios.get(
     `http://127.0.0.1:8000/products/category/${id}`
   );
-  renderProducts(items.data.data, items.data.data[0][7]);
+  const itemCoverImages = await axios.get(
+    `http://127.0.0.1:8000/product/category/coverimages/${id}`
+  );
+  renderProducts(
+    items.data.data,
+    itemCoverImages.data.data,
+    items.data.data[0][7]
+  );
 };
 
 categoryToggle.addEventListener("click", toggleCategoryMenu);
@@ -55,10 +65,13 @@ const getSearchedItem = async (product_name) => {
   const item = await axios.get(
     `http://127.0.0.1:8000/products/search/${product_name}`
   );
-  renderProducts(item.data.data, product_name);
+  const itemCoverImages = await axios.get(
+    `http://127.0.0.1:8000/product/search/coverimages/${product_name}`
+  );
+  renderProducts(item.data.data, itemCoverImages.data.data, product_name);
 };
 
-const renderProducts = (data, filter) => {
+const renderProducts = (data, coverImages, filter) => {
   main.innerHTML = "";
   filterContainer.innerHTML = "";
   if (filter !== undefined) {
@@ -78,12 +91,15 @@ const renderProducts = (data, filter) => {
     filterContainer.appendChild(filterDisplay);
   }
 
-  data.forEach((product) => {
+  data.forEach((product, index) => {
     const price = product[2].toString().split(".");
     const productCard = document.createElement("div");
     productCard.classList.add("product-card");
     productCard.innerHTML = `
-      <div class="image-container"></div>
+      <div class="image-container" style="background-image: url(${
+        coverImages[index][1]
+      })">
+      </div>
       <div class="product-detail">
         <div class="product-card-header">
           <h2 class="product-name">${product[1]}</h2>
