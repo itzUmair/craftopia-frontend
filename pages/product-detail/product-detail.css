@@ -1,8 +1,11 @@
 @import url("../../index.css");
+@import url("../../styles/product.css");
 
-main {
+.product-detail-page-container {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .product-detail-container {
@@ -70,10 +73,38 @@ main {
   color: var(--clr-100);
   box-shadow: 0 -0.3rem 0 0 var(--clr-620) inset;
   cursor: pointer;
-  margin-block-start: 3rem;
+  margin-block-start: auto;
 }
 
-.product-price {
+.product-detail-container > .right-section > .availability > .available {
+  color: green;
   font-weight: bold;
+}
+
+.product-detail-container > .right-section > .availability > .notavailable {
+  color: red;
+  font-weight: bold;
+}
+
+.right-section > .product-price {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.similar-product-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-block-start: 10rem;
+  margin-block-end: 10rem;
+  position: relative;
+}
+
+.similar-product-container::before {
+  content: "Similar Products";
+  position: absolute;
+  top: -5rem;
+  font-weight: bold;
+  text-transform: capitalize;
   font-size: 2rem;
 }

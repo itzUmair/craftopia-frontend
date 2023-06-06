@@ -1,4 +1,7 @@
 const main = document.querySelector(".product-detail-page-container");
+const similarProductsContainer = document.querySelector(
+  ".similar-product-container"
+);
 
 const getProductId = () => {
   const id = new URLSearchParams(window.location.search);
@@ -12,17 +15,59 @@ const getProductDetails = async () => {
     `http://127.0.0.1:8000/product/getitem/images/${id}`
   );
   const product = item.data.data;
+  const similar = await axios.get(
+    `http://127.0.0.1:8000/product/similar/${product[4]}/${id}`
+  );
+  const similarProductsImages = await axios.get(
+    `http://127.0.0.1:8000/product/similar/coverimages/${product[4]}/${id}`
+  );
+  const coverImages = similarProductsImages.data.data;
+  const similarProducts = similar.data.data;
   const productImages = images.data.data;
   const price = product[2].toString().split(".");
+
+  similarProducts.forEach((product, index) => {
+    const price = product[2].toString().split(".");
+    const productCard = document.createElement("div");
+    productCard.classList.add("product-card");
+    productCard.innerHTML = `
+      <div class="image-container" style="background-image: url(${
+        coverImages[index][1]
+      })">
+      </div>
+      <div class="product-detail">
+        <div class="product-card-header">
+          <h2 class="product-name">${product[1]}</h2>
+          <p class="product-price">Rs.${price[0]}.<span>${price[1]}</span></p>
+        </div>
+        <p class="product-category">${product[7]}</p>
+        <span class="rating-stars">${
+          product[6] === null ? "No rating" : "⭐".repeat(product[6])
+        }<span class="review-count">(${product[8]})</span></span>
+      </div>
+    `;
+    productCard.addEventListener("click", () => {
+      window.location.href = `./pages/product-detail/product-detail.html?id=${product[0]}`;
+    });
+    similarProductsContainer.appendChild(productCard);
+  });
   main.innerHTML = `
     <section class="product-detail-container">
     <section class="left-section">
       <div class="main-image-container image-container"></div>
       <div class="small-images-container">
-        <span class="small-image image-container" style="background-image: url(${productImages[0][1]}"></span>
-        <span class="small-image image-container" style="background-image: url(${productImages[1][1]}"></span>
-        <span class="small-image image-container" style="background-image: url(${productImages[2][1]}"></span>
-        <span class="small-image image-container" style="background-image: url(${productImages[3][1]}"></span>
+        <span class="small-image image-container" style="background-image: url(${
+          productImages[0][1]
+        }"></span>
+        <span class="small-image image-container" style="background-image: url(${
+          productImages[1][1]
+        }"></span>
+        <span class="small-image image-container" style="background-image: url(${
+          productImages[2][1]
+        }"></span>
+        <span class="small-image image-container" style="background-image: url(${
+          productImages[3][1]
+        }"></span>
       </div>
     </section>
     <section class="right-section">
@@ -30,11 +75,13 @@ const getProductDetails = async () => {
       <p class="category">${product[7]}</p>
       <p class="product-price">Rs.${price[0]}.<span>${price[1]}</span></p>
       <button class="order-btn">Order now</button>
-      <p class="availability">${product[3]}</p>
+      <p class="availability"><span class=${
+        product[3] === "Available" ? "available" : "notavailable"
+      }>${product[3]}</span> in stock</p>
     </section>
   </section>
-  <section class="similar-product-display"></section>
   `;
+  main.appendChild(similarProductsContainer);
   const mainImageContainer = document.querySelector(".main-image-container");
   const smallImageContainers = document.querySelectorAll(".small-image");
 
