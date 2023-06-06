@@ -53,7 +53,9 @@ const getProductDetails = async () => {
       </div>
     `;
     productCard.addEventListener("click", () => {
-      window.location.href = `./pages/product-detail/product-detail.html?id=${product[0]}`;
+      window.open(
+        `../../pages/product-detail/product-detail.html?id=${product[0]}`
+      );
     });
     similarProductsContainer.appendChild(productCard);
   });

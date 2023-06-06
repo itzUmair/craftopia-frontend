@@ -112,7 +112,9 @@ const renderProducts = (data, coverImages, filter) => {
       </div>
     `;
     productCard.addEventListener("click", () => {
-      window.location.href = `./pages/product-detail/product-detail.html?id=${product[0]}`;
+      window.open(
+        `./pages/product-detail/product-detail.html?id=${product[0]}`
+      );
     });
     main.appendChild(productCard);
   });
