@@ -3,6 +3,8 @@ const similarProductsContainer = document.querySelector(
   ".similar-product-container"
 );
 
+const defaultImage = "../../assets/no-image-svgrepo-com.svg";
+
 const getProductId = () => {
   const id = new URLSearchParams(window.location.search);
   return id.get("id");
@@ -23,8 +25,12 @@ const getProductDetails = async () => {
   );
   const coverImages = similarProductsImages.data.data;
   const similarProducts = similar.data.data;
-  const productImages = images.data.data;
+  let productImages = images.data.data;
   const price = product[2].toString().split(".");
+
+  if (!productImages) {
+    productImages = [];
+  }
 
   similarProducts.forEach((product, index) => {
     const price = product[2].toString().split(".");
@@ -32,7 +38,7 @@ const getProductDetails = async () => {
     productCard.classList.add("product-card");
     productCard.innerHTML = `
       <div class="image-container" style="background-image: url(${
-        coverImages[index][1]
+        coverImages[index]?.[1] || defaultImage
       })">
       </div>
       <div class="product-detail">
@@ -51,23 +57,24 @@ const getProductDetails = async () => {
     });
     similarProductsContainer.appendChild(productCard);
   });
+
   main.innerHTML = `
     <section class="product-detail-container">
     <section class="left-section">
       <div class="main-image-container image-container"></div>
       <div class="small-images-container">
         <span class="small-image image-container" style="background-image: url(${
-          productImages[0][1]
-        }"></span>
+          productImages[0]?.[1] || defaultImage
+        })"></span>
         <span class="small-image image-container" style="background-image: url(${
-          productImages[1][1]
-        }"></span>
+          productImages[1]?.[1] || defaultImage
+        })"></span>
         <span class="small-image image-container" style="background-image: url(${
-          productImages[2][1]
-        }"></span>
+          productImages[2]?.[1] || defaultImage
+        })"></span>
         <span class="small-image image-container" style="background-image: url(${
-          productImages[3][1]
-        }"></span>
+          productImages[3]?.[1] || defaultImage
+        })"></span>
       </div>
     </section>
     <section class="right-section">
@@ -79,17 +86,22 @@ const getProductDetails = async () => {
         product[3] === "Available" ? "available" : "notavailable"
       }>${product[3]}</span> in stock</p>
     </section>
-  </section>
-  `;
+  </section>`;
+
   main.appendChild(similarProductsContainer);
+
   const mainImageContainer = document.querySelector(".main-image-container");
   const smallImageContainers = document.querySelectorAll(".small-image");
 
-  mainImageContainer.style.backgroundImage = `url(${productImages[0][1]})`;
+  mainImageContainer.style.backgroundImage = `url(${
+    productImages[0]?.[1] || defaultImage
+  })`;
 
   smallImageContainers.forEach((smallContainer, index) => {
     smallContainer.addEventListener("click", () => {
-      mainImageContainer.style.backgroundImage = `url(${productImages[index][1]})`;
+      mainImageContainer.style.backgroundImage = `url(${
+        productImages[index]?.[1] || defaultImage
+      })`;
     });
   });
 };
